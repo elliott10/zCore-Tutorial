@@ -24,6 +24,7 @@
     - [🚧 Zircon 用户程序](ch04-01-user-program.md)
     - [🚧 上下文切换](ch04-02-context-switch.md)
     - [🚧 系统调用](ch04-03-syscall.md)
+    - [🚧 对Linux应用程序的兼容](ch04-04-linux-apps.md)
 
 - [信号和等待](ch05-00-signal-and-waiting.md)
     - [🚧 等待内核对象的信号](ch05-01-wait-signal.md)
