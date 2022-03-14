@@ -35,5 +35,6 @@
 - [硬件抽象层](ch06-00-hal.md)
     - [✅ UNIX硬件抽象层](ch06-01-zcore-hal-unix.md)
     - [🚧 LibOS对UNIX的支持](ch06-02-zcore-libos-unix.md)
-    - [🚧 zCore handle trapframe 的实现](ch06-03-trapframe_across_kernel_and_user.md)
+    - [🚧 Handle Trapframe的实现](ch06-03-trapframe_across_kernel_and_user.md)
+    - [🚧 Zircon 设备驱动模型](ch06-04-zircon-driver.md)
 
