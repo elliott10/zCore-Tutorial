@@ -587,4 +587,5 @@ fn sidt() -> DescriptorTablePointer {
 
 ------
 
-### 上下文切换的fncall的实现分析
+### 通过函数调用实现的上下文切换fncall的分析
+[fncall的实现分析](./ch06-02-zcore-libos-unix.md#通过函数调用的上下文切换的实现fncall)
