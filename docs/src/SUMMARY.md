@@ -33,3 +33,4 @@
 
 - [硬件抽象层](ch06-00-hal.md)
     - [✅ UNIX硬件抽象层](ch06-01-zcore-hal-unix.md)
+    - [🚧 LibOS对UNIX的支持](ch06-02-zcore-libos-unix.md)
