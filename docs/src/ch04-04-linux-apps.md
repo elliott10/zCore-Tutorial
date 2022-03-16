@@ -1,31 +1,29 @@
 # zCore对Linux用户程序的兼容
 
-* 对Linux程序的支持（图13）Linux系统调用层
+## zCore实现标准的Linux系统调用
 
-* zCore实现标准的Linux系统调用，以支持实际的Linux程序。
-(表格27 linux syscalls)
+Linux Syscalls 支持Linux用户程序:
+![img](img/zcore_linux_syscalls.png)
 
+### 支持基于musl libc的Linux程序
 首先我们选定了musl作为待支持的C标准库，然后尝试运行基于musl静态链接编译Linux程序，这一过程中我们需要实现musl建立运行环境时不可或缺的系统调用。
 
-支持基于musl libc的Linux程序
-
-* libc 的选择
+**libc 的选择**<br>
 C语言标准库（libc）是用户程序的最底层API。目前几乎所有的用户程序都建立在某个libc之上，极少直接和系统调用打交道。而不同的libc所使用的系统调用也有细微区别，因此选择一个合适的libc就尤其重要。
 
 我们平时最常用的是glibc，它功能全面但是过于复杂，一个从零实现的系统难以支持。另一个轻量级的版本是musl libc，它实现简单并且常用于静态链接。Linux发行版Alpine就是完全基于musl以及Busybox构建的。最后是我们的参考对象Biscuit，它使用自己剪裁的libc（称为litc），全部代码只有不到4000行。但它并不完全兼容Linux接口规范，有很多自定义的成分。
 
 综合考虑下来，虽然litc最为简单，但其不兼容Linux的特点可能导致后续大量程序的移植成本。相比之下musl可能更加复杂，但它支持几乎全部的Linux程序。因此我们选择适配musl，这是一件一劳永逸的事情。
 
-* 处理syscall 指令
+### 处理syscall 指令
 标准的Linux x86_64程序使用syscall指令进行系统调用，而zCore之前的用户程序使用软中断int 0x80。在默认情况下，执行syscall 会触发一个指令异常，我们只需在异常处理中判断一下指令码即可。
 在后期我们也实现了真正的syscall指令中断处理，从而优化系统调用的性能。首先要打开一个CPU开关，然后重新用汇编实现一个保存和恢复用户现场的操作。
 
 
-* 支持线程局部存储（TLS）
+### 支持线程局部存储（TLS）
 通过分析发现，支持线程局部存储（Thread Local Storage）是musl libc运行的必要条件。它在内核中的实现分为以下三个部分：
-- 实现arch_prctl系统调用，在其中使用wrmsr指令设置FSBASE。经过对musl代码的分析，我们发现通
-过arch_prctl系统调用，可以将FSBASE寄存器设置为pthread中描述本线程的数据结构指针。FSBASE在x86_64 下用作线程局部存储的起始地址，如果不设置的话会导致访问0地址。
-- 在发生中断时保存FSBASE到中断帧中
+- 实现arch_prctl系统调用，在其中使用wrmsr指令设置FSBASE。经过对musl代码的分析，我们发现通过arch_prctl系统调用，可以将FSBASE寄存器设置为pthread中描述本线程的数据结构指针。FSBASE在x86_64 下用作线程局部存储的起始地址，如果不设置的话会导致访问0地址。
+- 在发生中断时保存FSBASE到中断帧中。
 - 将ELF头的地址放在初始栈中传递给musl。具体而言，需要从ELF中解析PHDR 段的虚拟内存地址，将其作为辅助向量（Auxiliary Vector）的AT_PHDR 参数。musl通过读取这一地址解析ELF头，找到TLS 数据段的起始地址，在线程初始化时从此处复制数据。
 <br>
 
