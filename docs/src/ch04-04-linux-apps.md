@@ -2,7 +2,7 @@
 
 ## zCore实现标准的Linux系统调用
 
-Linux Syscalls 支持Linux用户程序:
+Linux Syscalls 支持Linux用户程序:<br>
 ![img](img/zcore_linux_syscalls.png)
 
 ### 支持基于musl libc的Linux程序
