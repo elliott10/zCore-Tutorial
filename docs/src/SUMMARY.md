@@ -1,6 +1,6 @@
 # zCore 教程
 
-[zCore Get Started](Get_Start.md)<br>
+[✅ Get Started](Get_Start.md)<br>
 [🚧 zCore 整体结构和设计模式](zcore-intro.md)<br>
 [🚧 Fuchsia OS 和 Zircon 微内核](fuchsia.md)<br>
 
