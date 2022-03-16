@@ -10,6 +10,7 @@
     - [🚧 对象传送器：Channel 对象](ch01-03-channel-object.md)
 
 - [任务管理](ch02-00-task.md)
+    - [🚧 zCore异步的实现](ch02-05-zcore-async.md)
     - [🚧 Zircon 任务管理体系](ch02-01-zircon-task.md)
     - [🚧 进程管理：Process 与 Job 对象](ch02-02-process-job-object.md)
     - [🚧 线程管理：Thread 对象](ch02-03-thread-object.md)
@@ -21,10 +22,10 @@
     - [🚧 虚拟内存：VMAR 对象](ch03-04-vmar.md)
 
 - [用户程序](ch04-00-userspace.md)
+    - [🚧 Linux 用户程序的兼容](ch04-04-linux-apps.md)
     - [🚧 Zircon 用户程序](ch04-01-user-program.md)
     - [🚧 上下文切换](ch04-02-context-switch.md)
     - [🚧 系统调用](ch04-03-syscall.md)
-    - [🚧 对Linux应用程序的兼容](ch04-04-linux-apps.md)
 
 - [信号和等待](ch05-00-signal-and-waiting.md)
     - [🚧 等待内核对象的信号](ch05-01-wait-signal.md)
